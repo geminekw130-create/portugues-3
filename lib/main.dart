@@ -336,11 +336,10 @@ class MyAppState extends State<MyApp> with WidgetsBindingObserver {
                   navigatorKey: navigatorKey,
                   theme: ThemeData(fontFamily: 'Gilroy Regular'),
                   debugShowCheckedModeBanner: false,
-                  locale: appLocale,
+                  locale: const Locale('pt', 'BR'),
                   supportedLocales: const [
                     Locale('pt', 'BR'),
                     Locale('en', 'US'),
-                    Locale('ar', 'AR'),
                   ],
                   localizationsDelegates: const [
                     AppLocalizations.delegate,
