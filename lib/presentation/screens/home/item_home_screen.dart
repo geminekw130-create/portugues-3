@@ -553,13 +553,14 @@ class _ItemHomeScreenState extends State<ItemHomeScreen>
                                 current: box.get("driver_status",
                                     defaultValue: false),
                                 onChanged: (value) async {
-                                  final data = loginModel?.data;
+                                  // Sempre valida o status de documentos mais recente
+                                  // vindo do backend (via GetDocApprovalStatusCubit),
+                                  // em vez de confiar apenas em dados de login em cache.
 
-                                  //  Se não estiver tudo aprovado, não deixa ficar online
-                                  if (data == null ||
-                                      data.documentVerify != 1 ||
-                                      data.verifiedStatus != 1 ||
-                                      data.accountStatus != 1) {
+                                  final isDocsApproved =
+                                      status.toLowerCase().trim() == "approved";
+
+                                  if (!isDocsApproved) {
                                     showModalBottomSheet(
                                       backgroundColor: notifires.getbgcolor,
                                       context: context,
@@ -606,7 +607,7 @@ class _ItemHomeScreenState extends State<ItemHomeScreen>
                                     return;
                                   }
 
-                                  //  Tudo aprovado → pode ligar/desligar normal
+                                  // Documentos aprovados → pode ligar/desligar
                                   box.put("driver_status", value);
 
                                   if (value == false) {
